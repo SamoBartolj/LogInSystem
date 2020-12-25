@@ -1,29 +1,36 @@
-print('''Hello and welcome to SuperCoolProgram.
-Beafore you continue you need to log in.
-If you don have account please sign in.''')
-signin_or_login = input('Type log in or sign in: ')
 
+users = {}
+status = ""
 
-if signin_or_login == 'sign in':
-    username = input('Enter your username: ')
-    email = input('Enter your email: \n')
-    password1 = input('Enter your password: \n')
-    password2 = input('Enter your password again: \n')
-    informations = [username, email, password1]
+def displayMenu():
+    newstatus = input("Are you registered user? y/n?: ")
+    if newstatus == 'y':
+        oldUser()
+    elif newstatus == 'n':
+        newUser()
+    else:
+        pass
 
-    if password1 == password2:
-        text_file = open("Accounts.text", "w")
-        text_file.writelines(informations)
-        text_file.close()
-        print('You successfully created an account.')
+def newUser():
+    createLogin = input('Create log in name: ')
 
+    if createLogin in users:
+        print('\nLogin name already exist!\n')
 
-else:
-    pass
+    else:
+        createPassw = input('Create new password: ')
+        users[createLogin] = createPassw
+        print('\nUser created\n')
 
+def oldUser():
+    login = input('Enter your login name: ')
+    passw = input('Enter your password: ')
 
-if signin_or_login == 'log in':
-    print('yao')
+    if login in users and users[login] == passw:
+        print('\nLogin successful!\n')
 
-else:
-    print('haoo')
+    else:
+        print("\nUser doesn't exist or wrong password!\n")
+
+while status != 'q':
+    displayMenu()
